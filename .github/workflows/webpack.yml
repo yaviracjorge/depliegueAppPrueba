@@ -1,0 +1,30 @@
+name: Expo Web CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    - name: Configurar Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20" 
+
+    - name: Instalar dependencias
+      run: npm install
+    
+    # Nuevo paso: Construir la aplicación para la web
+    - name: Construir la versión Web
+      run: npx expo export
+    
+    - name: Simular el deploy
+      run: echo "Desplegando la Web de Prueba..."
